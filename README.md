@@ -4,12 +4,6 @@ This is a web-based portal developed for a catering service, allowing admins to 
 
 ---
 
-## Live Demo
-
-**(Optional: You can add a link to your live deployed website here once you host it on Firebase.)**
-
----
-
 ## Features Implemented
 
 ### User (Customer) Features
@@ -42,7 +36,7 @@ To run this project locally, follow these steps:
 
 1.  **Clone the Repository**
     ```bash
-    git clone [https://github.com/your-username/catering-reservation-system.git](https://github.com/your-username/catering-reservation-system.git)
+    git clone [https://github.com/prabhmann07/catering-reservation-system.git](https://github.com/prabhmann07/catering-reservation-system.git)
     ```
 
 2.  **Navigate to the Project Directory**
