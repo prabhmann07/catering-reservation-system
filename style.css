@@ -1,0 +1,310 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.form-container {
+    background-color: white;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    width: 350px;
+    text-align: center;
+}
+
+h1 {
+    margin-bottom: 1.5rem;
+}
+
+input {
+    width: 100%;
+    padding: 0.75rem;
+    margin-bottom: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box; /* Important for padding */
+}
+
+button {
+    width: 100%;
+    padding: 0.75rem;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1rem;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+/* Admin Page Styles */
+.admin-container {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    width: 90%;
+    max-width: 800px;
+    padding: 1rem;
+    height: auto;
+    /* This margin pushes content below the fixed navbar and centers it */
+    margin: 80px auto 2rem auto;
+}
+
+.admin-section {
+    background-color: white;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+textarea {
+    width: 100%;
+    padding: 0.75rem;
+    margin-bottom: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+    resize: vertical;
+}
+
+#orders-list .order-card {
+    border: 1px solid #eee;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    border-radius: 5px;
+}
+
+#orders-list .order-card h4 {
+    margin-top: 0;
+}
+
+/* Navigation Bar Styles */
+.navbar {
+    width: 100%;
+    background-color: #333;
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-sizing: border-box;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000; /* THIS IS THE FIX: It brings the navbar to the front */
+}
+
+.nav-brand {
+    color: white;
+    font-size: 1.5rem;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.nav-links a {
+    color: white;
+    text-decoration: none;
+    margin-left: 1.5rem;
+}
+
+.nav-links a:hover {
+    text-decoration: underline;
+}
+
+/* Main Content Container */
+.container {
+    width: 90%;
+    max-width: 1200px;
+    /* This margin pushes content below the fixed navbar and centers it */
+    margin: 80px auto 2rem auto; 
+    text-align: center;
+}
+
+/* Product Grid Styles */
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+
+.product-card {
+    background-color: white;
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    text-align: left;
+}
+
+.product-card h3 {
+    margin-top: 0;
+}
+
+.product-card .price {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #007bff;
+    margin: 1rem 0;
+}
+/* Cart Page Styles */
+.cart-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #fff;
+    padding: 1rem 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    margin-bottom: 1rem;
+}
+
+.cart-item-details h4 {
+    margin: 0;
+}
+
+.cart-item-price {
+    font-weight: bold;
+}
+
+.cart-summary {
+    margin-top: 2rem;
+    padding: 1.5rem;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    text-align: right;
+}
+
+#cart-total {
+    margin: 0 0 1rem 0;
+}
+
+/* --- START: Replace Cart Page CSS with this --- */
+.cart-item {
+    display: flex; /* This is new */
+    justify-content: space-between;
+    align-items: center;
+    background-color: #fff;
+    padding: 1rem 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    margin-bottom: 1rem;
+}
+
+.cart-item-details h4 {
+    margin: 0;
+}
+
+.cart-item-price {
+    font-weight: bold;
+}
+
+.cart-item-actions {
+    display: flex;
+    align-items: center;
+}
+
+/* This new rule targets ALL buttons for consistent styling */
+.cart-item-actions button {
+    border: none;
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    border-radius: 4px;
+    font-size: 1rem;
+    display: flex; /* New */
+    align-items: center; /* New */
+    justify-content: center; /* New */
+    padding: 0; /* New */
+}
+
+.cart-item-actions span {
+    margin: 0 1rem;
+    font-weight: bold;
+}
+
+/* This rule now ONLY changes color and size */
+.cart-item-actions .remove-btn {
+    background-color: #e74c3c;
+    color: white;
+    margin-left: 2rem;
+    width: auto;
+    padding: 0 0.75rem; /* Re-add padding for width */
+}
+/* --- END: Replacement block --- */
+
+/* --- START: Replace Index Page CSS with this --- */
+.product-card .quantity-controls {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 1rem;
+}
+
+/* This rule is updated to be more explicit */
+.product-card .quantity-controls button {
+    background-color: #ddd;
+    color: #333;
+    border: none;
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    border-radius: 4px;
+    font-size: 1rem;
+    display: flex; /* New */
+    align-items: center; /* New */
+    justify-content: center; /* New */
+    padding: 0; /* New */
+}
+
+.product-card .quantity-controls span {
+    margin: 0 1rem;
+    font-weight: bold;
+    min-width: 20px;
+    text-align: center;
+}
+
+.product-card .add-to-cart-btn {
+    width: 100%;
+    margin-top: 1rem;
+}
+/* --- END: Replacement block --- */
+
+/* My Orders Page Styles */
+.order-history-card {
+    background-color: #fff;
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+    margin-bottom: 1.5rem;
+    text-align: left;
+}
+
+.order-history-card .order-header {
+    border-bottom: 1px solid #eee;
+    padding-bottom: 1rem;
+    margin-bottom: 1rem;
+}
+
+.order-history-card h3 {
+    margin: 0;
+}
+
+.order-history-card .order-items-list p {
+    margin: 0.5rem 0;
+    padding-left: 1rem;
+}
+
+/* --- SCROLLING FIX --- */
+/* This new class is for pages that need to scroll */
+body.scrollable {
+    height: auto;   /* Allows the body to grow with its content */
+    display: block; /* Resets the flexbox centering to a normal layout */
+}

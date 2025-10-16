@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Cart - Catering System</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="scrollable">
+
+    <nav class="navbar">
+        <a href="index.html" class="nav-brand">Catering Co.</a>
+        <div class="nav-links">
+            <a href="cart.html">Cart</a>
+            <a href="my-orders.html">My Orders</a>
+            <a href="admin.html">Admin</a>
+            <a href="login.html">Login</a>
+        </div>
+    </nav>
+
+    <div class="container">
+        <h1>Your Shopping Cart</h1>
+        <div id="cart-items-container">
+            <!-- Cart items will be loaded here by JavaScript -->
+        </div>
+
+        <div class="cart-summary">
+            <h3 id="cart-total">Total: Rs 0.00</h3>
+            <button id="place-order-btn">Place Order</button>
+        </div>
+    </div>
+
+    <!-- Firebase Scripts -->
+    <script src="https://www.gstatic.com/firebasejs/9.6.7/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.7/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.7/firebase-firestore-compat.js"></script>
+    
+    <!-- Your main script file -->
+    <script src="js/main.js"></script>
+</body>
+</html>
