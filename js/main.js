@@ -11,7 +11,36 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 const auth = firebase.auth();
 const db = firebase.firestore();
+// --- ADD THIS CODE BLOCK 1: NAVBAR AUTH STATE MANAGEMENT ---
+const loginLink = document.getElementById('login-link');
+const logoutLink = document.getElementById('logout-link');
 
+auth.onAuthStateChanged(user => {
+    if (user) {
+        // User is signed in
+        loginLink.style.display = 'none';
+        logoutLink.style.display = 'block';
+    } else {
+        // User is signed out
+        loginLink.style.display = 'block';
+        logoutLink.style.display = 'none';
+    }
+});
+
+
+// --- ADD THIS CODE BLOCK 2: LOGOUT FUNCTIONALITY ---
+if (logoutLink) {
+    logoutLink.addEventListener('click', (event) => {
+        event.preventDefault(); // Prevent the link from navigating
+        auth.signOut().then(() => {
+            console.log('User logged out successfully.');
+            alert('You have been logged out.');
+            window.location.href = 'login.html';
+        }).catch((error) => {
+            console.error('Logout Error:', error);
+        });
+    });
+}
 
 // --- Signup Logic ---
 const signupForm = document.getElementById('signup-form');
