@@ -308,3 +308,8 @@ body.scrollable {
     height: auto;   /* Allows the body to grow with its content */
     display: block; /* Resets the flexbox centering to a normal layout */
 }
+/* Fix for Navbar Link Alignment */
+.nav-links {
+    display: flex;
+    align-items: center;
+}
