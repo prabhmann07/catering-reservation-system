@@ -1,3 +1,4 @@
+/* --- Global Body Styles --- */
 body {
     font-family: Arial, sans-serif;
     background-color: #f4f4f4;
@@ -8,11 +9,12 @@ body {
     margin: 0;
 }
 
+/* --- Login/Signup Form Container --- */
 .form-container {
     background-color: white;
     padding: 2rem;
     border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1); 
     width: 350px;
     text-align: center;
 }
@@ -21,19 +23,20 @@ h1 {
     margin-bottom: 1.5rem;
 }
 
+/* --- Form Elements --- */
 input {
     width: 100%;
     padding: 0.75rem;
     margin-bottom: 1rem;
     border: 1px solid #ccc;
     border-radius: 4px;
-    box-sizing: border-box; /* Important for padding */
+    box-sizing: border-box; 
 }
 
 button {
     width: 100%;
     padding: 0.75rem;
-    background-color: #007bff;
+    background-color: #007bff; 
     color: white;
     border: none;
     border-radius: 4px;
@@ -42,10 +45,10 @@ button {
 }
 
 button:hover {
-    background-color: #0056b3;
+    background-color: #0056b3; 
 }
 
-/* Admin Page Styles */
+/* --- Admin Panel Styles --- */
 .admin-container {
     display: flex;
     flex-direction: column;
@@ -54,7 +57,6 @@ button:hover {
     max-width: 800px;
     padding: 1rem;
     height: auto;
-    /* This margin pushes content below the fixed navbar and centers it */
     margin: 80px auto 2rem auto;
 }
 
@@ -73,7 +75,7 @@ textarea {
     border-radius: 4px;
     box-sizing: border-box;
     font-family: Arial, sans-serif;
-    resize: vertical;
+    resize: vertical; /* Allows user to resize vertically only */
 }
 
 #orders-list .order-card {
@@ -87,7 +89,7 @@ textarea {
     margin-top: 0;
 }
 
-/* Navigation Bar Styles */
+/* --- Navigation Bar Styles --- */
 .navbar {
     width: 100%;
     background-color: #333;
@@ -96,10 +98,11 @@ textarea {
     justify-content: space-between;
     align-items: center;
     box-sizing: border-box;
+    /* Fixed position keeps navbar at the top while scrolling */
     position: fixed;
     top: 0;
     left: 0;
-    z-index: 1000; /* THIS IS THE FIX: It brings the navbar to the front */
+    z-index: 1000; /* Ensures navbar stays on top of all other content */
 }
 
 .nav-brand {
@@ -107,6 +110,11 @@ textarea {
     font-size: 1.5rem;
     font-weight: bold;
     text-decoration: none;
+}
+
+.nav-links {
+    display: flex;
+    align-items: center;
 }
 
 .nav-links a {
@@ -119,18 +127,18 @@ textarea {
     text-decoration: underline;
 }
 
-/* Main Content Container */
+/* --- Main Layout Containers --- */
 .container {
     width: 90%;
     max-width: 1200px;
-    /* This margin pushes content below the fixed navbar and centers it */
     margin: 80px auto 2rem auto; 
     text-align: center;
 }
 
-/* Product Grid Styles */
+/* --- Product Grid System --- */
 .product-grid {
     display: grid;
+    /* Responsive grid: creates so as many columns as fit with min 250px width */
     grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
     gap: 1.5rem;
     margin-top: 2rem;
@@ -154,7 +162,8 @@ textarea {
     color: #007bff;
     margin: 1rem 0;
 }
-/* Cart Page Styles */
+
+/* --- Shopping Cart Page Styles --- */
 .cart-item {
     display: flex;
     justify-content: space-between;
@@ -186,84 +195,32 @@ textarea {
     margin: 0 0 1rem 0;
 }
 
-/* --- START: Replace Cart Page CSS with this --- */
-.cart-item {
-    display: flex; /* This is new */
-    justify-content: space-between;
-    align-items: center;
-    background-color: #fff;
-    padding: 1rem 1.5rem;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-    margin-bottom: 1rem;
-}
-
-.cart-item-details h4 {
-    margin: 0;
-}
-
-.cart-item-price {
-    font-weight: bold;
-}
-
-.cart-item-actions {
-    display: flex;
-    align-items: center;
-}
-
-/* This new rule targets ALL buttons for consistent styling */
-.cart-item-actions button {
-    border: none;
-    width: 30px;
-    height: 30px;
-    cursor: pointer;
-    border-radius: 4px;
-    font-size: 1rem;
-    display: flex; /* New */
-    align-items: center; /* New */
-    justify-content: center; /* New */
-    padding: 0; /* New */
-}
-
-.cart-item-actions span {
-    margin: 0 1rem;
-    font-weight: bold;
-}
-
-/* This rule now ONLY changes color and size */
-.cart-item-actions .remove-btn {
-    background-color: #e74c3c;
-    color: white;
-    margin-left: 2rem;
-    width: auto;
-    padding: 0 0.75rem; /* Re-add padding for width */
-}
-/* --- END: Replacement block --- */
-
-/* --- START: Replace Index Page CSS with this --- */
+/* --- Quantity Control Buttons  --- */
+.cart-item-actions,
 .product-card .quantity-controls {
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-top: 1rem;
 }
 
-/* This rule is updated to be more explicit */
+/* Shared styling for +/- buttons to ensure consistent size */
+.cart-item-actions button,
 .product-card .quantity-controls button {
-    background-color: #ddd;
-    color: #333;
     border: none;
     width: 30px;
     height: 30px;
     cursor: pointer;
     border-radius: 4px;
     font-size: 1rem;
-    display: flex; /* New */
-    align-items: center; /* New */
-    justify-content: center; /* New */
-    padding: 0; /* New */
+    display: flex; 
+    align-items: center; 
+    justify-content: center;
+    padding: 0;
+    background-color: #ddd;
+    color: #333;
 }
 
+.cart-item-actions span,
 .product-card .quantity-controls span {
     margin: 0 1rem;
     font-weight: bold;
@@ -271,13 +228,22 @@ textarea {
     text-align: center;
 }
 
+/* Specific style for the Remove button in cart */
+.cart-item-actions .remove-btn {
+    background-color: #e74c3c; 
+    color: white;
+    margin-left: 2rem;
+    width: auto;
+    padding: 0 0.75rem;
+}
+
+/* Add to cart button on home page */
 .product-card .add-to-cart-btn {
     width: 100%;
     margin-top: 1rem;
 }
-/* --- END: Replacement block --- */
 
-/* My Orders Page Styles */
+/* --- My Orders Page Styles --- */
 .order-history-card {
     background-color: #fff;
     padding: 1.5rem;
@@ -302,14 +268,8 @@ textarea {
     padding-left: 1rem;
 }
 
-/* --- SCROLLING FIX --- */
-/* This new class is for pages that need to scroll */
+/* --- Utility Classes --- */
 body.scrollable {
-    height: auto;   /* Allows the body to grow with its content */
-    display: block; /* Resets the flexbox centering to a normal layout */
-}
-/* Fix for Navbar Link Alignment */
-.nav-links {
-    display: flex;
-    align-items: center;
+    height: auto;
+    display: block;
 }

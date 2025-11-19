@@ -1,3 +1,4 @@
+// --- Firebase Configuration ---
 const firebaseConfig = {
   apiKey: "AIzaSyBZKNc6C-29bCCujwW8MuPOO3ebfaC5Ia0",
   authDomain: "catering-system-524a0.firebaseapp.com",
@@ -7,42 +8,42 @@ const firebaseConfig = {
   appId: "1:1057047132807:web:ababf6eac9e843d6a49622"
 };
 
-// Initialize Firebase
+// Initialize Firebase services
 firebase.initializeApp(firebaseConfig);
 const auth = firebase.auth();
 const db = firebase.firestore();
-// --- ADD THIS CODE BLOCK 1: NAVBAR AUTH STATE MANAGEMENT ---
+
+// --- Navbar & Authentication State Management ---
+
 const loginLink = document.getElementById('login-link');
 const logoutLink = document.getElementById('logout-link');
 
 auth.onAuthStateChanged(user => {
     if (user) {
-        // User is signed in
-        loginLink.style.display = 'none';
-        logoutLink.style.display = 'block';
+        if (loginLink) loginLink.style.display = 'none';
+        if (logoutLink) logoutLink.style.display = 'block';
     } else {
-        // User is signed out
-        loginLink.style.display = 'block';
-        logoutLink.style.display = 'none';
+        if (loginLink) loginLink.style.display = 'block';
+        if (logoutLink) logoutLink.style.display = 'none';
     }
 });
 
+// --- Logout Functionality ---
 
-// --- ADD THIS CODE BLOCK 2: LOGOUT FUNCTIONALITY ---
 if (logoutLink) {
     logoutLink.addEventListener('click', (event) => {
-        event.preventDefault(); // Prevent the link from navigating
+        event.preventDefault(); 
         auth.signOut().then(() => {
             console.log('User logged out successfully.');
             alert('You have been logged out.');
-            window.location.href = 'login.html';
+            window.location.href = 'login.html'; // Redirect to login page
         }).catch((error) => {
             console.error('Logout Error:', error);
         });
     });
 }
 
-// --- Signup Logic ---
+// --- User Registration Logic (Signup) ---
 const signupForm = document.getElementById('signup-form');
 if (signupForm) {
     signupForm.addEventListener('submit', (event) => {
@@ -50,9 +51,17 @@ if (signupForm) {
         const email = document.getElementById('signup-email').value;
         const password = document.getElementById('signup-password').value;
 
+        // Create Auth User
         auth.createUserWithEmailAndPassword(email, password)
             .then((userCredential) => {
-                console.log('User signed up:', userCredential.user);
+                // Create User Document in Firestore with Default Role
+                return db.collection('users').doc(userCredential.user.uid).set({
+                    email: email,
+                    role: 'user' // Default role is 'user', not 'admin'
+                });
+            })
+            .then(() => {
+                console.log('User account and database entry created.');
                 alert('Signup successful! Please login.');
                 window.location.href = 'login.html';
             })
@@ -62,9 +71,8 @@ if (signupForm) {
             });
     });
 }
+// --- User Login Logic ---
 
-
-// --- Login Logic ---
 const loginForm = document.getElementById('login-form');
 if (loginForm) {
     loginForm.addEventListener('submit', (event) => {
@@ -72,11 +80,12 @@ if (loginForm) {
         const email = document.getElementById('login-email').value;
         const password = document.getElementById('login-password').value;
 
+        // Authenticate user with Firebase
         auth.signInWithEmailAndPassword(email, password)
             .then((userCredential) => {
                 console.log('User logged in:', userCredential.user);
                 alert('Login successful!');
-                window.location.href = 'index.html';
+                window.location.href = 'index.html'; // Redirect to home
             })
             .catch((error) => {
                 console.error('Login Error:', error);
@@ -86,6 +95,7 @@ if (loginForm) {
 }
 
 // --- Admin Panel: Add Product Logic ---
+
 const addProductForm = document.getElementById('add-product-form');
 if (addProductForm) {
     addProductForm.addEventListener('submit', (event) => {
@@ -112,8 +122,8 @@ if (addProductForm) {
     });
 }
 
-
 // --- Admin Panel: View Orders Logic ---
+
 const ordersListContainer = document.getElementById('orders-list');
 if (ordersListContainer) {
     db.collection('orders').get()
@@ -143,6 +153,7 @@ if (ordersListContainer) {
 }
 
 // --- Home Page: Display Products Logic ---
+
 const productListContainer = document.getElementById('product-list');
 if (productListContainer) {
     db.collection('products').get()
@@ -157,6 +168,7 @@ if (productListContainer) {
                 const product = doc.data();
                 const productId = doc.id;
                 
+                // Render product card with quantity controls
                 productsHTML += `
                     <div class="product-card" data-id="${productId}">
                         <h3>${product.name}</h3>
@@ -180,7 +192,8 @@ if (productListContainer) {
         });
 }
 
-// Function to change quantity on the product card
+// --- Quantity Logic (Home Page) ---
+
 function changeQuantity(productId, amount) {
     const quantityElement = document.getElementById(`quantity-${productId}`);
     let currentQuantity = parseInt(quantityElement.innerText);
@@ -190,7 +203,8 @@ function changeQuantity(productId, amount) {
     }
 }
 
-// Function to add item with selected quantity from home page
+// --- Add to Cart from Home Page ---
+
 function addToCartFromHome(productId) {
     if (!auth.currentUser) {
         alert("Please login to add items to your cart.");
@@ -204,6 +218,7 @@ function addToCartFromHome(productId) {
     db.collection('products').doc(productId).get().then(doc => {
         if (doc.exists) {
             const product = doc.data();
+            // Retrieve existing cart from localStorage
             let cart = JSON.parse(localStorage.getItem('cart')) || [];
             const existingProductIndex = cart.findIndex(item => item.id === productId);
 
@@ -218,15 +233,18 @@ function addToCartFromHome(productId) {
                 });
             }
 
+            // Save updated cart back to localStorage
             localStorage.setItem('cart', JSON.stringify(cart));
             alert(`${quantity} x ${product.name} has been added to your cart.`);
-            quantityElement.innerText = '1'; // Reset quantity on page
+            quantityElement.innerText = '1'; // Reset UI quantity to 1
         }
     }).catch(error => {
         console.error("Error getting product:", error);
     });
 }
-// --- Add to Cart Function ---
+
+// --- Standard Add to Cart Logic (Fallback) ---
+
 function addToCart(productId) {
     if (!auth.currentUser) {
         alert("Please login to add items to your cart.");
@@ -239,14 +257,11 @@ function addToCart(productId) {
             const product = doc.data();
             let cart = JSON.parse(localStorage.getItem('cart')) || [];
             
-            // Check if product is already in the cart
             const existingProductIndex = cart.findIndex(item => item.id === productId);
 
             if (existingProductIndex > -1) {
-                // If it exists, increase quantity
                 cart[existingProductIndex].quantity += 1;
             } else {
-                // If not, add new product with quantity 1
                 cart.push({
                     id: productId,
                     name: product.name,
@@ -265,10 +280,11 @@ function addToCart(productId) {
     });
 }
 
-// --- Cart Page: Main Function to Display Items ---
+// --- Cart Page: Display Logic ---
+
 function displayCartItems() {
     const cartItemsContainer = document.getElementById('cart-items-container');
-    if (!cartItemsContainer) return; // Only run on cart page
+    if (!cartItemsContainer) return;
 
     const cart = JSON.parse(localStorage.getItem('cart')) || [];
     const cartTotalElement = document.getElementById('cart-total');
@@ -302,7 +318,8 @@ function displayCartItems() {
     cartTotalElement.textContent = `Total: Rs ${total.toFixed(2)}`;
 }
 
-// --- Function to Update Quantity (+ or -) ---
+// --- Cart: Update Item Quantity ---
+
 function updateCartQuantity(productId, change) {
     let cart = JSON.parse(localStorage.getItem('cart')) || [];
     const productIndex = cart.findIndex(item => item.id === productId);
@@ -310,32 +327,33 @@ function updateCartQuantity(productId, change) {
     if (productIndex > -1) {
         cart[productIndex].quantity += change;
         if (cart[productIndex].quantity <= 0) {
-            // If quantity drops to 0 or less, remove the item
+            // Remove item if quantity drops to 0
             cart.splice(productIndex, 1);
         }
     }
 
     localStorage.setItem('cart', JSON.stringify(cart));
-    displayCartItems(); // Re-render the cart
+    displayCartItems();
 }
 
-// --- Function to Remove Item from Cart ---
+// --- Cart: Remove Item ---
+
 function removeFromCart(productId) {
     let cart = JSON.parse(localStorage.getItem('cart')) || [];
     const updatedCart = cart.filter(item => item.id !== productId);
     
     localStorage.setItem('cart', JSON.stringify(updatedCart));
-    displayCartItems(); // Re-render the cart
+    displayCartItems();
 }
 
-// Run displayCartItems function when the cart page loads
+// Initialize cart display on page load
 document.addEventListener('DOMContentLoaded', displayCartItems);
 
 // --- Place Order Logic ---
+
 const placeOrderBtn = document.getElementById('place-order-btn');
 if (placeOrderBtn) {
     placeOrderBtn.addEventListener('click', () => {
-        // ... (The place order logic is the same as before, but it will now save the cart with quantities)
         const user = auth.currentUser;
         if (!user) {
             alert("Please login to place an order.");
@@ -354,19 +372,20 @@ if (placeOrderBtn) {
             total += item.price * item.quantity;
         });
 
+        // Prepare order object
         const orderDetails = {
             userId: user.uid,
             userEmail: user.email,
-            items: cart, // The cart now includes quantities
+            items: cart,
             totalPrice: total,
-            createdAt: firebase.firestore.FieldValue.serverTimestamp()
+            createdAt: firebase.firestore.FieldValue.serverTimestamp() // Server timestamp for sorting
         };
 
         db.collection('orders').add(orderDetails)
             .then(docRef => {
                 console.log("Order placed with ID: ", docRef.id);
                 alert("Order placed successfully!");
-                localStorage.removeItem('cart');
+                localStorage.removeItem('cart'); // Clear cart after successful order
                 window.location.href = 'my-orders.html';
             })
             .catch(error => {
@@ -374,12 +393,13 @@ if (placeOrderBtn) {
             });
     });
 }
+
 // --- My Orders Page Logic ---
+
 const myOrdersListContainer = document.getElementById('my-orders-list');
 if (myOrdersListContainer) {
     auth.onAuthStateChanged(user => {
         if (user) {
-            // User is logged in, fetch their orders
             db.collection('orders').where("userId", "==", user.uid).orderBy("createdAt", "desc").get()
                 .then((querySnapshot) => {
                     if (querySnapshot.empty) {
@@ -391,7 +411,7 @@ if (myOrdersListContainer) {
                     querySnapshot.forEach((doc) => {
                         const order = doc.data();
                         
-                        // Create a list of items for this order
+                        // Format items list for display
                         let itemsList = "";
                         order.items.forEach(item => {
                             itemsList += `<p>${item.quantity} x ${item.name}</p>`;
@@ -417,8 +437,43 @@ if (myOrdersListContainer) {
                     myOrdersListContainer.innerHTML = "<p>Error loading your orders.</p>";
                 });
         } else {
-            // User is not logged in
+            // Prompt user to login if accessing page directly
             myOrdersListContainer.innerHTML = "<h2>Please <a href='login.html'>login</a> to see your orders.</h2>";
+        }
+    });
+}
+
+// --- Admin Page Protection Logic (Fixed for Flash Content) ---
+if (window.location.pathname.includes('admin.html')) {
+    auth.onAuthStateChanged(user => {
+        if (user) {
+            // Check the user's role in the database
+            db.collection('users').doc(user.uid).get()
+                .then((doc) => {
+                    if (doc.exists) {
+                        const userData = doc.data();
+                        if (userData.role === 'admin') {
+                            console.log('Admin access granted.');
+                            // User is admin, NOW we show the page
+                            document.body.style.display = 'block'; 
+                        } else {
+                            alert('Access Denied: You do not have admin privileges.');
+                            window.location.href = 'index.html';
+                        }
+                    } else {
+                        // No role found
+                        alert('Access Denied: User profile not found.');
+                        window.location.href = 'index.html';
+                    }
+                })
+                .catch((error) => {
+                    console.error("Error checking admin role:", error);
+                    window.location.href = 'index.html';
+                });
+        } else {
+            // Not logged in at all
+            alert('You must be logged in as an admin to view this page.');
+            window.location.href = 'login.html';
         }
     });
 }
