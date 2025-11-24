@@ -1,4 +1,4 @@
-/* --- Global Body Styles --- */
+/*  Global Body Styles */
 body {
     font-family: Arial, sans-serif;
     background-color: #f4f4f4;
@@ -9,7 +9,7 @@ body {
     margin: 0;
 }
 
-/* --- Login/Signup Form Container --- */
+/*  Login/Signup Form Container */
 .form-container {
     background-color: white;
     padding: 2rem;
@@ -23,7 +23,7 @@ h1 {
     margin-bottom: 1.5rem;
 }
 
-/* --- Form Elements --- */
+/*  Form Elements */
 input {
     width: 100%;
     padding: 0.75rem;
@@ -48,7 +48,7 @@ button:hover {
     background-color: #0056b3; 
 }
 
-/* --- Admin Panel Styles --- */
+/*  Admin Panel Styles */
 .admin-container {
     display: flex;
     flex-direction: column;
@@ -89,7 +89,7 @@ textarea {
     margin-top: 0;
 }
 
-/* --- Navigation Bar Styles --- */
+/*  Navigation Bar Styles  */
 .navbar {
     width: 100%;
     background-color: #333;
@@ -127,7 +127,7 @@ textarea {
     text-decoration: underline;
 }
 
-/* --- Main Layout Containers --- */
+/*  Main Layout Containers  */
 .container {
     width: 90%;
     max-width: 1200px;
@@ -135,7 +135,7 @@ textarea {
     text-align: center;
 }
 
-/* --- Product Grid System --- */
+/* Product Grid System  */
 .product-grid {
     display: grid;
     /* Responsive grid: creates so as many columns as fit with min 250px width */
@@ -150,6 +150,9 @@ textarea {
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0,0,0,0.1);
     text-align: left;
+    display: flex;
+    flex-direction: column;
+    height: 100%; 
 }
 
 .product-card h3 {
@@ -161,9 +164,10 @@ textarea {
     font-weight: bold;
     color: #007bff;
     margin: 1rem 0;
+    margin-top: auto; 
 }
 
-/* --- Shopping Cart Page Styles --- */
+/* Shopping Cart Page Styles  */
 .cart-item {
     display: flex;
     justify-content: space-between;
@@ -195,7 +199,7 @@ textarea {
     margin: 0 0 1rem 0;
 }
 
-/* --- Quantity Control Buttons  --- */
+/*  Quantity Control Buttons   */
 .cart-item-actions,
 .product-card .quantity-controls {
     display: flex;
@@ -243,7 +247,7 @@ textarea {
     margin-top: 1rem;
 }
 
-/* --- My Orders Page Styles --- */
+/*  My Orders Page Styles  */
 .order-history-card {
     background-color: #fff;
     padding: 1.5rem;
@@ -268,8 +272,14 @@ textarea {
     padding-left: 1rem;
 }
 
-/* --- Utility Classes --- */
+/*  Utility Classes */
 body.scrollable {
     height: auto;
     display: block;
 }
+
+.product-grid {
+    row-gap: 10rem !important; 
+    gap: 4rem !important;     
+}
+
