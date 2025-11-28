@@ -4,6 +4,12 @@ This is a web-based portal developed for a catering service, allowing admins to 
 
 ---
 
+## Live Demo
+
+**[Live Demo](https://catering-system-524a0.web.app)**
+
+---
+
 ## Features Implemented
 
 ### User (Customer) Features
@@ -54,6 +60,15 @@ To run this project locally, follow these steps:
 
 4.  **Run the Website**
     - Simply open the `index.html` file in your web browser. You can navigate to all other pages from there.
+
+---
+
+##  Test Credentials 
+
+To test the Admin features, please use:
+
+- **Admin Email:** prabhmannsaluja2305@gmail.com
+- **Admin Password:** 123456
 
 ---
 
